@@ -24,7 +24,7 @@ export default class ForumStatisticsWidget extends Component {
         <div class="row">
           <h2><i class="fas fa-chart-bar"></i> {app.translator.trans(translationPrefix + 'widget_title')}</h2>
           <div>
-            <ul class="ForumStatisticsList">
+            <ul id="ForumStatisticsList">
               <li>{app.translator.trans(translationPrefix + 'discussions_count', {discussionsCount})}</li>
               <li>{app.translator.trans(translationPrefix + 'posts_count', {postsCount})}</li>
               <li>{app.translator.trans(translationPrefix + 'users_count', {usersCount})}</li>
