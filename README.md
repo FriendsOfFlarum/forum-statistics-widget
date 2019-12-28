@@ -1,4 +1,4 @@
-# FoF Forum Statistics Widget
+# Forum Statistics Widget by FriendsOfFlarum
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/forum-statistics-widget.svg)](https://packagist.org/packages/fof/forum-statistics-widget) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate)
 
@@ -19,17 +19,17 @@ composer update fof/forum-statistics-widget
 ```
 
 ### Screenshots
-![](https://i.imgur.com/Oy5HZmR.jpg)
+![Widget Default Setting](https://i.imgur.com/Oy5HZmR.jpg)
 
-![](https://i.imgur.com/yIR5DXZ.jpg)
+![Widget Default View](https://i.imgur.com/yIR5DXZ.jpg)
 
-![](https://i.imgur.com/3tlPvVr.jpg)
+![Widget Positive Setting](https://i.imgur.com/3tlPvVr.jpg)
 
-![](https://i.imgur.com/amWCu5B.jpg)
+![Widget Positive View](https://i.imgur.com/amWCu5B.jpg)
 
-![](https://i.imgur.com/IH5w7bv.jpg)
+![Widget Negative Setting](https://i.imgur.com/IH5w7bv.jpg)
 
-![](https://i.imgur.com/DGaB1PO.jpg)
+![Widget Negative View](https://i.imgur.com/DGaB1PO.jpg)
 
 ### Links
 
