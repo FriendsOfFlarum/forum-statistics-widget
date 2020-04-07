@@ -51,7 +51,7 @@ class AddRelationships
         if ($event->isSerializer(ForumSerializer::class)) {
             $lastUser = User::orderBy('joined_at', 'DESC')->limit(1)->first();
             $event->attributes['discussionsCount'] = Discussion::count();
-            $event->attributes['postsCount'] = Post::count();
+            $event->attributes['postsCount'] = Post::where('type', 'comment')->count();
             $event->attributes['usersCount'] = User::count();
             $event->attributes['lastUser'] = $lastUser != null ? $lastUser->username : null;
             $event->attributes['fof-forum-statistics-widget.widget_order'] = $this->settings->get('fof-forum-statistics-widget.widget_order');
