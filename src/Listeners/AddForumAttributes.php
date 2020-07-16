@@ -19,7 +19,7 @@ use Flarum\User\User;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class AddRelationships
+class AddForumAttributes
 {
     /**
      * @var SettingsRepositoryInterface
