@@ -50,11 +50,12 @@ class AddRelationships
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             $lastUser = User::orderBy('joined_at', 'DESC')->limit(1)->first();
-            $event->attributes['discussionsCount'] = Discussion::count();
+            $event->attributes['discussionsCount'] = $this->settings->get('fof-forum-statistics-widget.ignore_private_discussions') ? Discussion::where('is_private', 0)->count() : Discussion::count();
             $event->attributes['postsCount'] = Post::where('type', 'comment')->count();
             $event->attributes['usersCount'] = User::count();
             $event->attributes['lastUser'] = $lastUser != null ? $lastUser->username : null;
-            $event->attributes['fof-forum-statistics-widget.widget_order'] = $this->settings->get('fof-forum-statistics-widget.widget_order');
+            $event->attributes['fof-forum-statistics-widget.widget_order'] = (int) $this->settings->get('fof-forum-statistics-widget.widget_order', 0);
+            $event->attributes['fof-forum-statistics-widget.ignore_private_discussions'] = (bool) $this->settings->get('fof-forum-statistics-widget.ignore_private_discussions', true);
         }
     }
 }
