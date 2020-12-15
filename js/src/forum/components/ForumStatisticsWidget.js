@@ -1,6 +1,8 @@
 import Component from 'flarum/Component';
 import username from 'flarum/helpers/username';
 import formatNumber from 'flarum/utils/formatNumber';
+import Stream from 'flarum/utils/Stream';
+import Link from 'flarum/components/Link';
 
 const translationPrefix = 'fof-forum-statistics-widget.forum.navbar.';
 
@@ -11,8 +13,8 @@ export default class ForumStatisticsWidget extends Component {
         let usersCount = formatNumber(app.forum.attribute('usersCount'));
 
         let user = {
-            displayName: m.prop(app.forum.attribute('lastUser')),
-            username: m.prop(app.forum.attribute('lastUser')),
+            displayName: Stream(app.forum.attribute('lastUser')),
+            slug: Stream(app.forum.attribute('lastUser')),
         };
 
         return (
@@ -28,9 +30,9 @@ export default class ForumStatisticsWidget extends Component {
                             <li>{app.translator.trans(translationPrefix + 'users_count', { usersCount })}</li>
                             <li>
                                 {app.translator.trans(translationPrefix + 'latest_member')}
-                                <a href={app.route.user(user)} config={m.route}>
+                                <Link href={app.route.user(user)}>
                                     <strong> {username(user)}</strong>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
