@@ -1,5 +1,5 @@
 import { extend } from 'flarum/extend';
-import IndexPage from 'flarum/components/IndexPage';
+import IndexPage from 'flarum/forum/components/IndexPage';
 import ForumStatisticsWidget from './components/ForumStatisticsWidget';
 
 app.initializers.add('fof/forum-statistics-widget', () => {

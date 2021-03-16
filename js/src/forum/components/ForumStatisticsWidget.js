@@ -1,20 +1,21 @@
 import Component from 'flarum/Component';
-import username from 'flarum/helpers/username';
-import formatNumber from 'flarum/utils/formatNumber';
-import Stream from 'flarum/utils/Stream';
-import Link from 'flarum/components/Link';
+import username from 'flarum/common/helpers/username';
+import formatNumber from 'flarum/common/utils/formatNumber';
+import Stream from 'flarum/common/utils/Stream';
+import Link from 'flarum/common/components/Link';
 
 const translationPrefix = 'fof-forum-statistics-widget.forum.navbar.';
+const attributePrefix = 'fof-forum-statistics-widget.';
 
 export default class ForumStatisticsWidget extends Component {
     view() {
-        let discussionsCount = formatNumber(app.forum.attribute('discussionsCount'));
-        let postsCount = formatNumber(app.forum.attribute('postsCount'));
-        let usersCount = formatNumber(app.forum.attribute('usersCount'));
+        let discussionsCount = formatNumber(app.forum.attribute(attributePrefix + 'discussionsCount'));
+        let postsCount = formatNumber(app.forum.attribute(attributePrefix + 'postsCount'));
+        let usersCount = formatNumber(app.forum.attribute(attributePrefix + 'usersCount'));
 
         let user = {
-            displayName: Stream(app.forum.attribute('lastUser')),
-            slug: Stream(app.forum.attribute('lastUser')),
+            displayName: Stream(app.forum.attribute(attributePrefix + 'lastUser')),
+            slug: Stream(app.forum.attribute(attributePrefix + 'lastUser')),
         };
 
         return (
@@ -25,9 +26,21 @@ export default class ForumStatisticsWidget extends Component {
                     </h2>
                     <div>
                         <ul id="ForumStatisticsList">
-                            <li>{app.translator.trans(translationPrefix + 'discussions_count', { discussionsCount })}</li>
-                            <li>{app.translator.trans(translationPrefix + 'posts_count', { postsCount })}</li>
-                            <li>{app.translator.trans(translationPrefix + 'users_count', { usersCount })}</li>
+                            <li>
+                                {app.translator.trans(translationPrefix + 'discussions_count', {
+                                    discussionsCount,
+                                })}
+                            </li>
+                            <li>
+                                {app.translator.trans(translationPrefix + 'posts_count', {
+                                    postsCount,
+                                })}
+                            </li>
+                            <li>
+                                {app.translator.trans(translationPrefix + 'users_count', {
+                                    usersCount,
+                                })}
+                            </li>
                             <li>
                                 {app.translator.trans(translationPrefix + 'latest_member')}
                                 <Link href={app.route.user(user)}>
