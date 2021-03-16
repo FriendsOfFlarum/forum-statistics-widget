@@ -20,17 +20,10 @@ composer update fof/forum-statistics-widget
 ```
 
 ### Screenshots
-![Widget Default Setting](https://i.imgur.com/Oy5HZmR.jpg)
+![FoF_Forum_Statistics_Widget_Frontend_View](https://user-images.githubusercontent.com/2059356/111257989-7a938480-85f2-11eb-819d-30b4caa15df4.png)
 
-![Widget Default View](https://i.imgur.com/yIR5DXZ.jpg)
+![FoF_Forum_Statistics_Widget_Admin_Settings](https://user-images.githubusercontent.com/2059356/111257820-356f5280-85f2-11eb-88d4-938715dfbae0.png)
 
-![Widget Positive Setting](https://i.imgur.com/3tlPvVr.jpg)
-
-![Widget Positive View](https://i.imgur.com/amWCu5B.jpg)
-
-![Widget Negative Setting](https://i.imgur.com/IH5w7bv.jpg)
-
-![Widget Negative View](https://i.imgur.com/DGaB1PO.jpg)
 
 ### Links
 
