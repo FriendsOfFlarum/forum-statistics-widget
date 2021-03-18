@@ -1,4 +1,4 @@
-import Component from 'flarum/Component';
+import Component from 'flarum/common/Component';
 import username from 'flarum/common/helpers/username';
 import formatNumber from 'flarum/common/utils/formatNumber';
 import Stream from 'flarum/common/utils/Stream';

@@ -1,4 +1,4 @@
-import { extend } from 'flarum/extend';
+import { extend } from 'flarum/common/extend';
 import IndexPage from 'flarum/forum/components/IndexPage';
 import ForumStatisticsWidget from './components/ForumStatisticsWidget';
 
