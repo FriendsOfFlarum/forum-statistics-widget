@@ -1,4 +1,4 @@
-import app from 'flarum/app';
+import app from 'flarum/common/app';
 
 const translationPrefix = 'fof-forum-statistics-widget.admin.settings.';
 const settingsPrefix = 'fof-forum-statistics-widget.';
