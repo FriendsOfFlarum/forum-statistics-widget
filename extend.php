@@ -39,19 +39,24 @@ return [
             'intval', 0),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
-        ->attribute('fof-forum-statistics-widget.discussionsCount', function ($serializer, $model, $attributes) {
-            return $attributes['fof-forum-statistics-widget.ignore_private_discussions'] ?
-                Discussion::where('is_private', 0)->count() : Discussion::count();
-        })
-        ->attribute('fof-forum-statistics-widget.postsCount', function ($serializer, $model) {
-            return Post::where('type', 'comment')->count();
-        })
-        ->attribute('fof-forum-statistics-widget.usersCount', function ($serializer, $model) {
-            return User::count();
-        })
-        ->attribute('fof-forum-statistics-widget.lastUserId', function ($serializer, $model) {
+    ->attributes(function($serializer, $model, $attributes) {
+        if ($serializer->getActor()->can('fof-forum-statistics-widget.viewWidget.discussionsCount')) {
+            $attributes['fof-forum-statistics-widget.discussionsCount'] = $attributes['fof-forum-statistics-widget.ignore_private_discussions'] ?
+            Discussion::where('is_private', 0)->count() : Discussion::count();
+        }
+
+        if ($serializer->getActor()->can('fof-forum-statistics-widget.viewWidget.postsCount')) {
+            $attributes['fof-forum-statistics-widget.postsCount'] = Post::where('type', 'comment')->count();
+        }
+        if ($serializer->getActor()->can('fof-forum-statistics-widget.viewWidget.usersCount')) {
+            $attributes['fof-forum-statistics-widget.usersCount'] = User::count();
+        }
+        if ($serializer->getActor()->can('fof-forum-statistics-widget.viewWidget.latestMember')) {
             $lastUser = User::orderBy('joined_at', 'DESC')->limit(1)->first();
 
-            return $lastUser != null ? $lastUser->id : null;
-        }),
+            $attributes['fof-forum-statistics-widget.lastUserId'] = $lastUser != null ? $lastUser->id : null;
+        }
+
+        return $attributes;
+    }),
 ];

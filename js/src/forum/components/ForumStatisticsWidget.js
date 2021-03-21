@@ -4,6 +4,7 @@ import username from 'flarum/common/helpers/username';
 import formatNumber from 'flarum/common/utils/formatNumber';
 import Link from 'flarum/common/components/Link';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
+import ItemList from 'flarum/common/utils/ItemList';
 
 const translationPrefix = 'fof-forum-statistics-widget.forum.navbar.';
 const attributePrefix = 'fof-forum-statistics-widget.';
@@ -11,13 +12,17 @@ const attributePrefix = 'fof-forum-statistics-widget.';
 export default class ForumStatisticsWidget extends Component {
     oninit(vnode) {
         super.oninit(vnode);
-        this.loading = true;
         const lastUserId = app.forum.attribute(attributePrefix + 'lastUserId');
-        app.store.find('users', lastUserId).then((user) => {
-            this.user = user;
-            this.loading = false;
-            m.redraw();
-        });
+
+        if (lastUserId) {
+            this.loading = true;
+
+            app.store.find('users', lastUserId).then((user) => {
+                this.user = user;
+                this.loading = false;
+                m.redraw();
+            });
+        }
     }
 
     view() {
@@ -25,9 +30,9 @@ export default class ForumStatisticsWidget extends Component {
             return <LoadingIndicator />;
         }
 
-        let discussionsCount = formatNumber(app.forum.attribute(attributePrefix + 'discussionsCount'));
-        let postsCount = formatNumber(app.forum.attribute(attributePrefix + 'postsCount'));
-        let usersCount = formatNumber(app.forum.attribute(attributePrefix + 'usersCount'));
+        const items = this.items().toArray();
+
+        if (items.length === 0) return;
 
         return (
             <div class="ForumStatistics containerNarrow">
@@ -36,32 +41,66 @@ export default class ForumStatisticsWidget extends Component {
                         <i class="fas fa-chart-bar"></i> {app.translator.trans(translationPrefix + 'widget_title')}
                     </h2>
                     <div>
-                        <ul id="ForumStatisticsList">
-                            <li>
-                                {app.translator.trans(translationPrefix + 'discussions_count', {
-                                    discussionsCount,
-                                })}
-                            </li>
-                            <li>
-                                {app.translator.trans(translationPrefix + 'posts_count', {
-                                    postsCount,
-                                })}
-                            </li>
-                            <li>
-                                {app.translator.trans(translationPrefix + 'users_count', {
-                                    usersCount,
-                                })}
-                            </li>
-                            <li>
-                                {app.translator.trans(translationPrefix + 'latest_member')}
-                                <Link href={app.route.user(this.user)}>
-                                    <strong> {username(this.user)}</strong>
-                                </Link>
-                            </li>
-                        </ul>
+                        <ul id="ForumStatisticsList">{items}</ul>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    items() {
+        const items = new ItemList();
+
+        let discussionsCount = app.forum.attribute(attributePrefix + 'discussionsCount');
+        let postsCount = app.forum.attribute(attributePrefix + 'postsCount');
+        let usersCount = app.forum.attribute(attributePrefix + 'usersCount');
+        const lastUserId = app.forum.attribute(attributePrefix + 'lastUserId');
+
+        if (discussionsCount) {
+            items.add(
+                'discussions_count',
+                <li>
+                    {app.translator.trans(translationPrefix + 'discussions_count', {
+                        discussionsCount: formatNumber(discussionsCount),
+                    })}
+                </li>
+            );
+        }
+
+        if (postsCount) {
+            items.add(
+                'posts_count',
+                <li>
+                    {app.translator.trans(translationPrefix + 'posts_count', {
+                        postsCount: formatNumber(postsCount),
+                    })}
+                </li>
+            );
+        }
+
+        if (usersCount) {
+            items.add(
+                'users_count',
+                <li>
+                    {app.translator.trans(translationPrefix + 'users_count', {
+                        usersCount: formatNumber(usersCount),
+                    })}
+                </li>
+            );
+        }
+
+        if (lastUserId) {
+            items.add(
+                'latest_member',
+                <li>
+                    {app.translator.trans(translationPrefix + 'latest_member')}
+                    <Link href={app.route.user(this.user)}>
+                        <strong> {username(this.user)}</strong>
+                    </Link>
+                </li>
+            );
+        }
+
+        return items;
     }
 }
