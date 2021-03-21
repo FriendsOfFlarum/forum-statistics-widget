@@ -22,8 +22,7 @@ composer update fof/forum-statistics-widget
 ### Screenshots
 ![FoF_Forum_Statistics_Widget_Frontend_View](https://user-images.githubusercontent.com/2059356/111257989-7a938480-85f2-11eb-819d-30b4caa15df4.png)
 
-![FoF_Forum_Statistics_Widget_Admin_Settings](https://user-images.githubusercontent.com/2059356/111257820-356f5280-85f2-11eb-88d4-938715dfbae0.png)
-
+![FoF_Forum_Statistics_Widget_Admin_Settings](https://user-images.githubusercontent.com/2059356/111917897-ad0d0980-8a58-11eb-82f5-8cb736af6d7c.png)
 
 ### Links
 
