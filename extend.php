@@ -15,7 +15,6 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Extend;
 use Flarum\Post\Post;
-use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
 
 return [
@@ -33,14 +32,13 @@ return [
             'fof-forum-statistics-widget.ignore_private_discussions',
             'fof-forum-statistics-widget.ignore_private_discussions',
             'boolval'
-        ),
+        )
+        ->serializeToForum(
+            'fof-forum-statistics-widget.widget_order',
+            'fof-forum-statistics-widget.widget_order',
+            'intval', 0),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
-        ->attribute('fof-forum-statistics-widget.widget_order', function ($serializer, $model) {
-            $settings = resolve(SettingsRepositoryInterface::class);
-
-            return (int) $settings->get('fof-forum-statistics-widget.widget_order', 0);
-        })
         ->attribute('fof-forum-statistics-widget.discussionsCount', function ($serializer, $model, $attributes) {
             return $attributes['fof-forum-statistics-widget.ignore_private_discussions'] ?
                 Discussion::where('is_private', 0)->count() : Discussion::count();
@@ -51,9 +49,9 @@ return [
         ->attribute('fof-forum-statistics-widget.usersCount', function ($serializer, $model) {
             return User::count();
         })
-        ->attribute('fof-forum-statistics-widget.lastUser', function ($serializer, $model) {
+        ->attribute('fof-forum-statistics-widget.lastUserId', function ($serializer, $model) {
             $lastUser = User::orderBy('joined_at', 'DESC')->limit(1)->first();
 
-            return $lastUser != null ? $lastUser->display_name : null;
+            return $lastUser != null ? $lastUser->id : null;
         }),
 ];

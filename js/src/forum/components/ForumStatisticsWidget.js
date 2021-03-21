@@ -1,22 +1,33 @@
+import app from 'flarum/common/app';
 import Component from 'flarum/common/Component';
 import username from 'flarum/common/helpers/username';
 import formatNumber from 'flarum/common/utils/formatNumber';
-import Stream from 'flarum/common/utils/Stream';
 import Link from 'flarum/common/components/Link';
+import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 
 const translationPrefix = 'fof-forum-statistics-widget.forum.navbar.';
 const attributePrefix = 'fof-forum-statistics-widget.';
 
 export default class ForumStatisticsWidget extends Component {
+    oninit(vnode) {
+        super.oninit(vnode);
+        this.loading = true;
+        const lastUserId = app.forum.attribute(attributePrefix + 'lastUserId');
+        app.store.find('users', lastUserId).then((user) => {
+            this.user = user;
+            this.loading = false;
+            m.redraw();
+        });
+    }
+
     view() {
+        if (this.loading) {
+            return <LoadingIndicator />;
+        }
+
         let discussionsCount = formatNumber(app.forum.attribute(attributePrefix + 'discussionsCount'));
         let postsCount = formatNumber(app.forum.attribute(attributePrefix + 'postsCount'));
         let usersCount = formatNumber(app.forum.attribute(attributePrefix + 'usersCount'));
-
-        let user = {
-            displayName: Stream(app.forum.attribute(attributePrefix + 'lastUser')),
-            slug: Stream(app.forum.attribute(attributePrefix + 'lastUser')),
-        };
 
         return (
             <div class="ForumStatistics containerNarrow">
@@ -43,8 +54,8 @@ export default class ForumStatisticsWidget extends Component {
                             </li>
                             <li>
                                 {app.translator.trans(translationPrefix + 'latest_member')}
-                                <Link href={app.route.user(user)}>
-                                    <strong> {username(user)}</strong>
+                                <Link href={app.route.user(this.user)}>
+                                    <strong> {username(this.user)}</strong>
                                 </Link>
                             </li>
                         </ul>
