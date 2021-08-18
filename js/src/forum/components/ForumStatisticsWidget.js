@@ -93,9 +93,9 @@ export default class ForumStatisticsWidget extends Component {
             items.add(
                 'latest_member',
                 <li>
-                    {app.translator.trans(translationPrefix + 'latest_member')}
+                    {app.translator.trans(translationPrefix + 'latest_member')}{' '}
                     <Link href={app.route.user(this.user)}>
-                        <strong> {username(this.user)}</strong>
+                        <strong>{username(this.user)}</strong>
                     </Link>
                 </li>
             );
