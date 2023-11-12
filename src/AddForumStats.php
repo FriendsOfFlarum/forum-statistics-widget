@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of fof/forum-statistics-widget.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\ForumStatisticsWidget;
 
 use Flarum\Api\Serializer\ForumSerializer;
@@ -21,13 +30,13 @@ class AddForumStats
      * @var SettingsRepositoryInterface
      */
     protected $settings;
-    
+
     public function __construct(Cache $cache, SettingsRepositoryInterface $settings)
     {
         $this->cache = $cache;
         $this->settings = $settings;
     }
-    
+
     public function __invoke(ForumSerializer $serializer, $model, $attributes): array
     {
         $ttl = (int) $this->settings->get('fof-forum-statistics-widget.cache_duration');
@@ -66,10 +75,10 @@ class AddForumStats
         $ignorePrivate = (bool) $this->settings->get('fof-forum-statistics-widget.ignore_private_discussions');
 
         return [
-            'discussion_count' => $ignorePrivate ? Discussion::query()->where('is_private', false)->count() : Discussion::query()->count(),
-            'user_count' => User::query()->count(),
+            'discussion_count'   => $ignorePrivate ? Discussion::query()->where('is_private', false)->count() : Discussion::query()->count(),
+            'user_count'         => User::query()->count(),
             'comment_post_count' => CommentPost::query()->count(),
-            'last_user' => (User::query()->orderBy('joined_at', 'DESC')->limit(1)->first())?->id,
+            'last_user'          => User::query()->orderBy('joined_at', 'DESC')->limit(1)->first()?->id,
         ];
     }
 }
