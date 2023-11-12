@@ -73,12 +73,13 @@ class AddForumStats
     protected function buildStats(): array
     {
         $ignorePrivate = (bool) $this->settings->get('fof-forum-statistics-widget.ignore_private_discussions');
+        $lastUser = User::query()->orderBy('joined_at', 'DESC')->limit(1)->first();
 
         return [
             'discussion_count'   => $ignorePrivate ? Discussion::query()->where('is_private', false)->count() : Discussion::query()->count(),
             'user_count'         => User::query()->count(),
             'comment_post_count' => CommentPost::query()->count(),
-            'last_user'          => User::query()->orderBy('joined_at', 'DESC')->limit(1)->first()?->id,
+            'last_user'          => $lastUser ? $lastUser->id : null,
         ];
     }
 }
