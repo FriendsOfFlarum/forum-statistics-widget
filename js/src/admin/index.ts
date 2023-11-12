@@ -16,6 +16,13 @@ app.initializers.add('fof-forum-statistics-widget', () => {
       type: 'number',
       help: app.translator.trans(translationPrefix + 'settings.widget_helper_text'),
     })
+    .registerSetting({
+      setting: 'fof-forum-statistics-widget.cache_duration',
+      type: 'number',
+      min: 0,
+      label: app.translator.trans('fof-forum-statistics-widget.admin.settings.cache_duration_label'),
+      help: app.translator.trans('fof-forum-statistics-widget.admin.settings.cache_duration_help'),
+    })
     .registerPermission(
       {
         icon: 'fas fa-chart-bar',
