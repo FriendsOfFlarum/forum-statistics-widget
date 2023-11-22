@@ -23,6 +23,12 @@ app.initializers.add('fof-forum-statistics-widget', () => {
       label: app.translator.trans('fof-forum-statistics-widget.admin.settings.cache_duration_label'),
       help: app.translator.trans('fof-forum-statistics-widget.admin.settings.cache_duration_help'),
     })
+    .registerSetting({
+      setting: 'fof-forum-statistics-widget.flush_cache_on_new_registration',
+      type: 'boolean',
+      label: app.translator.trans('fof-forum-statistics-widget.admin.settings.flush_cache_on_new_registration_label'),
+      help: app.translator.trans('fof-forum-statistics-widget.admin.settings.flush_cache_on_new_registration_help'),
+    })
     .registerPermission(
       {
         icon: 'fas fa-chart-bar',
