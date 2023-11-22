@@ -38,5 +38,5 @@ return [
         ->attributes(AddForumStats::class),
 
     (new Extend\Event())
-        ->subscribe(Listener\FushStats::class),
+        ->subscribe(Listener\FlushStats::class),
 ];

@@ -17,7 +17,7 @@ use FoF\ForumStatisticsWidget\AddForumStats;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class FushStats
+class FlushStats
 {
     /**
      * @var Cache
