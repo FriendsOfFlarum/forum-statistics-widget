@@ -36,4 +36,7 @@ return [
 
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(AddForumStats::class),
+
+    (new Extend\Event())
+        ->subscribe(Listener\FushStats::class),
 ];

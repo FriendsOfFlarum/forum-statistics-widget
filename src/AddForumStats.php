@@ -21,6 +21,8 @@ use Illuminate\Support\Arr;
 
 class AddForumStats
 {
+    public const CACHE_KEY = 'fof-forum-statistics-widget.stats';
+    
     /**
      * @var Cache
      */
@@ -41,7 +43,7 @@ class AddForumStats
     {
         $ttl = (int) $this->settings->get('fof-forum-statistics-widget.cache_duration');
 
-        $stats = $this->cache->remember('fof-forum-statistics-widget.stats', $ttl, function (): array {
+        $stats = $this->cache->remember(self::CACHE_KEY, $ttl, function (): array {
             return $this->buildStats();
         }) ?: [];
 
