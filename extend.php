@@ -27,6 +27,7 @@ return [
     (new Extend\Settings())
         ->default('fof-forum-statistics-widget.ignore_private_discussions', false)
         ->default('fof-forum-statistics-widget.cache_duration', 600)
+        ->default('fof-forum-statistics-widget.flush_cache_on_new_registration', false)
         ->serializeToForum(
             'fof-forum-statistics-widget.widget_order',
             'fof-forum-statistics-widget.widget_order',

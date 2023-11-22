@@ -16,6 +16,7 @@ use Flarum\Discussion\Discussion;
 use Flarum\Post\CommentPost;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
+use FoF\ForumStatisticsWidget\Repository\StatsRepository;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\Arr;
 
@@ -33,10 +34,13 @@ class AddForumStats
      */
     protected $settings;
 
-    public function __construct(Cache $cache, SettingsRepositoryInterface $settings)
+    protected $stats;
+
+    public function __construct(Cache $cache, SettingsRepositoryInterface $settings, StatsRepository $stats)
     {
         $this->cache = $cache;
         $this->settings = $settings;
+        $this->stats = $stats;
     }
 
     public function __invoke(ForumSerializer $serializer, $model, $attributes): array
@@ -75,13 +79,12 @@ class AddForumStats
     protected function buildStats(): array
     {
         $ignorePrivate = (bool) $this->settings->get('fof-forum-statistics-widget.ignore_private_discussions');
-        $lastUser = User::query()->orderBy('joined_at', 'DESC')->limit(1)->first();
 
         return [
             'discussion_count'   => $ignorePrivate ? Discussion::query()->where('is_private', false)->count() : Discussion::query()->count(),
             'user_count'         => User::query()->count(),
             'comment_post_count' => CommentPost::query()->count(),
-            'last_user'          => $lastUser ? $lastUser->id : null,
+            'last_user'          => $this->stats->getLatestUserId(),
         ];
     }
 }
