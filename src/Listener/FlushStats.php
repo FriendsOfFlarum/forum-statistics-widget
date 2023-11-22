@@ -31,7 +31,8 @@ class FlushStats
     public function __construct(Cache $cache, SettingsRepositoryInterface $settings)
     {
         $this->cache = $cache;
-        $this->settings = $settings;    }
+        $this->settings = $settings;
+    }
 
     public function subscribe(Dispatcher $events): void
     {
