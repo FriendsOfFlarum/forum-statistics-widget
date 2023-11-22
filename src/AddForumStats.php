@@ -22,7 +22,7 @@ use Illuminate\Support\Arr;
 class AddForumStats
 {
     public const CACHE_KEY = 'fof-forum-statistics-widget.stats';
-    
+
     /**
      * @var Cache
      */
