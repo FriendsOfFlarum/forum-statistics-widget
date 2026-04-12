@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.2",
         "flarum/core": "^1.8.0",
-        "fof/forum-widgets-core": "1.x-dev"
+        "fof/forum-widgets-core": "^1.0.0"
     },
     "authors": [
         {
