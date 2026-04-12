@@ -1,20 +1,18 @@
 import app from 'flarum/admin/app';
 
+import registerWidget from '../common/registerWidget';
+
 const translationPrefix = 'fof-forum-statistics-widget.admin.';
 
 app.initializers.add('fof-forum-statistics-widget', () => {
+  registerWidget();
+
   app.extensionData
     .for('fof-forum-statistics-widget')
     .registerSetting({
       label: app.translator.trans(translationPrefix + 'settings.widget_ignore_private_discussions_label'),
       setting: 'fof-forum-statistics-widget.ignore_private_discussions',
       type: 'switch',
-    })
-    .registerSetting({
-      label: app.translator.trans(translationPrefix + 'settings.widget_order_label'),
-      setting: 'fof-forum-statistics-widget.widget_order',
-      type: 'number',
-      help: app.translator.trans(translationPrefix + 'settings.widget_helper_text'),
     })
     .registerSetting({
       setting: 'fof-forum-statistics-widget.cache_duration',
