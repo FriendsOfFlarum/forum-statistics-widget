@@ -105,7 +105,7 @@ export default class ForumStatisticsWidget extends Widget<WidgetAttrs> {
         'latest_member',
         <li>
           {app.translator.trans(translationPrefix + 'latest_member')}{' '}
-          <Link href={app.route.user(user)}>
+          <Link href={app.route('user', { username: user.slug() })}>
             <strong>{username(user)}</strong>
           </Link>
         </li>
