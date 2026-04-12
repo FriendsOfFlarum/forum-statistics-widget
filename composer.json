@@ -22,13 +22,15 @@
         }
     ],
     "require": {
-        "flarum/core": "^1.2.0"
+        "php": "^8.2",
+        "flarum/core": "^1.8.0",
+        "fof/forum-widgets-core": "1.x-dev"
     },
     "authors": [
         {
-            "name": "Christian Lopez",
-            "email": "me@ralkage.com",
-            "role": "Developer"
+            "name": "FoF Team",
+            "role": "maintainer",
+            "homepage": "https://friendsofflarum.org"
         }
     ],
     "autoload": {
@@ -38,8 +40,8 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "FoF Forum Statistics Widget",
-            "category": "feature",
+            "title": "FoF Statistics Widget",
+            "category": "forum-widget",
             "icon": {
                 "name": "fas fa-chart-bar",
                 "backgroundColor": "#e74c3c",
