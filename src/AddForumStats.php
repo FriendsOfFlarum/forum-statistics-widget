@@ -11,7 +11,8 @@
 
 namespace FoF\ForumStatisticsWidget;
 
-use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Api\Context;
+use Flarum\Api\Schema;
 use Flarum\Discussion\Discussion;
 use Flarum\Post\CommentPost;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -24,56 +25,38 @@ class AddForumStats
 {
     public const CACHE_KEY = 'fof-forum-statistics-widget.stats';
 
-    /**
-     * @var Cache
-     */
-    protected $cache;
-
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    protected $stats;
-
-    public function __construct(Cache $cache, SettingsRepositoryInterface $settings, StatsRepository $stats)
+    public function __construct(protected Cache $cache, protected SettingsRepositoryInterface $settings, protected StatsRepository $stats)
     {
-        $this->cache = $cache;
-        $this->settings = $settings;
-        $this->stats = $stats;
     }
 
-    public function __invoke(ForumSerializer $serializer, $model, $attributes): array
+    public function __invoke(): array
+    {
+        return [
+            Schema\Integer::make('fof-forum-statistics-widget.discussionsCount')
+                ->visible(fn ($model, Context $context) => $context->getActor()->can('fof-forum-statistics-widget.viewWidget.discussionsCount'))
+                ->get(fn () => Arr::get($this->getStats(), 'discussion_count')),
+
+            Schema\Integer::make('fof-forum-statistics-widget.postsCount')
+                ->visible(fn ($model, Context $context) => $context->getActor()->can('fof-forum-statistics-widget.viewWidget.postsCount'))
+                ->get(fn () => Arr::get($this->getStats(), 'comment_post_count')),
+
+            Schema\Integer::make('fof-forum-statistics-widget.usersCount')
+                ->visible(fn ($model, Context $context) => $context->getActor()->can('fof-forum-statistics-widget.viewWidget.usersCount'))
+                ->get(fn () => Arr::get($this->getStats(), 'user_count')),
+
+            Schema\Integer::make('fof-forum-statistics-widget.lastUserId')
+                ->visible(fn ($model, Context $context) => $context->getActor()->can('fof-forum-statistics-widget.viewWidget.latestMember'))
+                ->get(fn () => Arr::get($this->getStats(), 'last_user')),
+        ];
+    }
+
+    protected function getStats(): array
     {
         $ttl = (int) $this->settings->get('fof-forum-statistics-widget.cache_duration');
 
-        $stats = $this->cache->remember(self::CACHE_KEY, $ttl, function (): array {
+        return $this->cache->remember(self::CACHE_KEY, $ttl, function (): array {
             return $this->buildStats();
         }) ?: [];
-
-        if (empty($stats)) {
-            return $attributes;
-        }
-
-        $actor = $serializer->getActor();
-
-        if ($actor->can('fof-forum-statistics-widget.viewWidget.discussionsCount')) {
-            $attributes['fof-forum-statistics-widget.discussionsCount'] = Arr::get($stats, 'discussion_count');
-        }
-
-        if ($actor->can('fof-forum-statistics-widget.viewWidget.postsCount')) {
-            $attributes['fof-forum-statistics-widget.postsCount'] = Arr::get($stats, 'comment_post_count');
-        }
-
-        if ($actor->can('fof-forum-statistics-widget.viewWidget.usersCount')) {
-            $attributes['fof-forum-statistics-widget.usersCount'] = Arr::get($stats, 'user_count');
-        }
-
-        if ($actor->can('fof-forum-statistics-widget.viewWidget.latestMember')) {
-            $attributes['fof-forum-statistics-widget.lastUserId'] = Arr::get($stats, 'last_user');
-        }
-
-        return $attributes;
     }
 
     protected function buildStats(): array

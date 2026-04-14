@@ -22,9 +22,8 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "flarum/core": "^1.8.0",
-        "fof/forum-widgets-core": "^1.0.0"
+        "flarum/core": "^2.0.0",
+        "fof/forum-widgets-core": "^2.0.0"
     },
     "authors": [
         {
@@ -58,7 +57,7 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*"
+        "flarum/phpstan": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
@@ -66,5 +65,7 @@
     },
     "scripts-descriptions": {
         "analyse:phpstan": "Run static analysis"
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
