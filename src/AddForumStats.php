@@ -24,23 +24,8 @@ class AddForumStats
 {
     public const CACHE_KEY = 'fof-forum-statistics-widget.stats';
 
-    /**
-     * @var Cache
-     */
-    protected $cache;
-
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    protected $stats;
-
-    public function __construct(Cache $cache, SettingsRepositoryInterface $settings, StatsRepository $stats)
+    public function __construct(protected Cache $cache, protected SettingsRepositoryInterface $settings, protected StatsRepository $stats)
     {
-        $this->cache = $cache;
-        $this->settings = $settings;
-        $this->stats = $stats;
     }
 
     public function __invoke(ForumSerializer $serializer, $model, $attributes): array

@@ -21,17 +21,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class FlushStats
 {
-    /**
-     * @var Cache
-     */
-    public $cache;
-
-    public $settings;
-
-    public function __construct(Cache $cache, SettingsRepositoryInterface $settings)
+    public function __construct(public Cache $cache, public SettingsRepositoryInterface $settings)
     {
-        $this->cache = $cache;
-        $this->settings = $settings;
     }
 
     public function subscribe(Dispatcher $events): void
