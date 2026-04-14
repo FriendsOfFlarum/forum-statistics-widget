@@ -4,6 +4,7 @@ import Widget, { WidgetAttrs } from 'flarum/extensions/fof-forum-widgets-core/co
 export default class ForumStatisticsWidget extends Widget<WidgetAttrs> {
     oninit(vnode: Mithril.Vnode): void;
     oncreate(vnode: Mithril.VnodeDOM): void;
+    isClassicLook(): boolean;
     className(): string;
     icon(): string;
     title(): string;
