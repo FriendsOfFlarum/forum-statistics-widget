@@ -29,8 +29,13 @@ export default class ForumStatisticsWidget extends Widget<WidgetAttrs> {
     }
   }
 
+  isClassicLook(): boolean {
+    return !!(app.forum.attribute<boolean>(attributePrefix + 'classicLook') as unknown as boolean | undefined);
+  }
+
   className(): string {
-    return 'FoF-ForumStatisticsWidget';
+    const base = 'FoF-ForumStatisticsWidget';
+    return this.isClassicLook() ? `${base} ${base}--classic` : base;
   }
 
   icon(): string {
@@ -53,6 +58,21 @@ export default class ForumStatisticsWidget extends Widget<WidgetAttrs> {
     const items = this.items().toArray();
 
     if (items.length === 0) return null;
+
+    if (this.isClassicLook()) {
+      return (
+        <div className="ForumStatistics containerNarrow">
+          <div className="row">
+            <h2>
+              <i className="fas fa-chart-bar" /> {app.translator.trans(translationPrefix + 'widget_title')}
+            </h2>
+            <div>
+              <ul id="ForumStatisticsList">{items}</ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     return <ul className="ForumStatisticsList">{items}</ul>;
   }

@@ -1,7 +1,54 @@
+// ============================================================
+// Forum Statistics Widget — New look (fof/forum-widgets-core)
+// ============================================================
+// These styles apply when the "Classic look" admin setting is OFF.
+// The widget container and title bar are rendered by the Widget
+// base class from fof/forum-widgets-core. Only the content area
+// needs styling here.
+
 .FoF-ForumStatisticsWidget {
   .ForumStatisticsList {
     margin: 0;
     padding: 0;
     list-style-type: none;
+  }
+}
+
+// ============================================================
+// Forum Statistics Widget — Classic look
+// ============================================================
+// These styles apply when the "Classic look" admin setting is ON.
+// The --classic modifier is added to the root widget element
+// (which also carries FofWidgets-Widget), so selectors here use
+// &-title / &-content relative to that same root element.
+//
+// Goal: strip the widget chrome (title bar, content card) and
+// restore the original plain sidebar appearance.
+
+.FoF-ForumStatisticsWidget--classic {
+  // Hide the icon + heading rendered by the Widget base class
+  > .FofWidgets-Widget-title {
+    display: none;
+  }
+
+  // Remove the card background/padding/radius from the content wrapper
+  > .FofWidgets-Widget-content {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+
+    // Classic content container
+    .ForumStatistics {
+      color: @control-color;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    #ForumStatisticsList {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      position: relative;
+    }
   }
 }
