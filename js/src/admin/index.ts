@@ -15,6 +15,12 @@ app.initializers.add('fof-forum-statistics-widget', () => {
       type: 'switch',
     })
     .registerSetting({
+      setting: 'fof-forum-statistics-widget.classic_look',
+      type: 'switch',
+      label: app.translator.trans(translationPrefix + 'settings.classic_look_label'),
+      help: app.translator.trans(translationPrefix + 'settings.classic_look_help'),
+    })
+    .registerSetting({
       setting: 'fof-forum-statistics-widget.cache_duration',
       type: 'number',
       min: 0,

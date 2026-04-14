@@ -13,6 +13,8 @@ fof-forum-statistics-widget:
       flush_cache_on_new_registration_label: Flush Stats Cache on New Registration
       flush_cache_on_new_registration_help: "If enabled, the stats cache will be flushed when a new user registers on the forum."
       widget_ignore_private_discussions_label: Ignore Private Discussions
+      classic_look_label: Classic Look
+      classic_look_help: "Restore the original widget appearance used before the fof/forum-widgets-core integration."
     permissions:
       view_discussions_count_label: View forum statistics widget discussions count
       view_posts_count_label: View forum statistics widget posts count

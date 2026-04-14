@@ -27,7 +27,9 @@ return [
     (new Extend\Settings())
         ->default('fof-forum-statistics-widget.ignore_private_discussions', false)
         ->default('fof-forum-statistics-widget.cache_duration', 600)
-        ->default('fof-forum-statistics-widget.flush_cache_on_new_registration', false),
+        ->default('fof-forum-statistics-widget.flush_cache_on_new_registration', false)
+        ->default('fof-forum-statistics-widget.classic_look', false)
+        ->serializeToForum('fof-forum-statistics-widget.classicLook', 'fof-forum-statistics-widget.classic_look', 'boolval'),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(AddForumStats::class),
