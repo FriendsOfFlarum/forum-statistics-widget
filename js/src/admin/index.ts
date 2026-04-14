@@ -7,7 +7,7 @@ const translationPrefix = 'fof-forum-statistics-widget.admin.';
 app.initializers.add('fof-forum-statistics-widget', () => {
   registerWidget();
 
-  app.extensionData
+  app.registry
     .for('fof-forum-statistics-widget')
     .registerSetting({
       label: app.translator.trans(translationPrefix + 'settings.widget_ignore_private_discussions_label'),
