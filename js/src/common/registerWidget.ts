@@ -1,5 +1,5 @@
 import app from 'flarum/common/app';
-import Widgets from 'ext:flarum/extensions/fof-forum-widgets-core/common/extend/Widgets';
+import Widgets from 'ext:fof/forum-widgets-core/common/extend/Widgets';
 
 import ForumStatisticsWidget from './components/ForumStatisticsWidget';
 

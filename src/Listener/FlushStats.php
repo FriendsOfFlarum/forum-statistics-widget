@@ -35,7 +35,7 @@ class FlushStats
         }
     }
 
-    public function flushStats($event): void
+    public function flushStats(): void
     {
         $this->cache->forget(AddForumStats::CACHE_KEY);
     }

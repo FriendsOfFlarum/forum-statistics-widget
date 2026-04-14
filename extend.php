@@ -11,10 +11,7 @@
 
 namespace FoF\ForumStatisticsWidget;
 
-use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
-use Flarum\Api\Context;
-use Flarum\Api\Endpoint;
 use Flarum\Api\Resource;
 use Flarum\Api\Schema;
 
@@ -35,9 +32,8 @@ return [
         ->default('fof-forum-statistics-widget.classic_look', false)
         ->serializeToForum('fof-forum-statistics-widget.classicLook', 'fof-forum-statistics-widget.classic_look', 'boolval'),
 
-    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
-    (new Extend\ApiSerializer(ForumSerializer::class))
-        ->attributes(AddForumStats::class),
+    (new Extend\ApiResource(Resource\ForumResource::class))
+        ->fields(AddForumStats::class),
 
     (new Extend\Event())
         ->subscribe(Listener\FlushStats::class),
