@@ -11,9 +11,8 @@
 
 namespace FoF\ForumStatisticsWidget;
 
-use Flarum\Extend;
 use Flarum\Api\Resource;
-use Flarum\Api\Schema;
+use Flarum\Extend;
 
 return [
     (new Extend\Frontend('forum'))
