@@ -17,7 +17,7 @@ class StatsRepository
 {
     public function getLatestUser(): ?User
     {
-        return User::query()->orderBy('joined_at', 'DESC')->limit(1)->first();
+        return User::query()->orderBy('joined_at', 'desc')->limit(1)->first();
     }
 
     public function getLatestUserId(): ?int
