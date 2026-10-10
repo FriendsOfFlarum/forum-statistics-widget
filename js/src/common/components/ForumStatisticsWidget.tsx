@@ -145,11 +145,17 @@ export default class ForumStatisticsWidget extends Widget<WidgetAttrs> {
 
     this.attrs.state.isLoading = true;
 
-    app.store.find<User>('users', lastUserId).then((user) => {
-      this.attrs.state.user = user;
-      this.attrs.state.isLoading = false;
-      this.attrs.state.hasLoaded = true;
-      m.redraw();
-    });
+    app.store
+      .find<User>('users', lastUserId)
+      .then((user) => {
+        this.attrs.state.user = user;
+      })
+      // The counts still render without the latest member; app.request has already reported the error.
+      .catch(() => {})
+      .finally(() => {
+        this.attrs.state.isLoading = false;
+        this.attrs.state.hasLoaded = true;
+        m.redraw();
+      });
   }
 }
